@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Cards from "./pages/Cards";
 import SharedLayout from "./components/SharedLayout";
 import Transactions from "./pages/Transactions";
+import Donate from "./pages/Donate";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="cards" element={<Cards />} />
           <Route path="transactions" element={<Transactions />} />
+          <Route path="donate" element={<Donate />} />
         </Route>
 
         <Route path="login" element={<Login />}></Route>

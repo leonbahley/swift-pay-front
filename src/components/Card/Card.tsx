@@ -1,6 +1,5 @@
 import "./Card.css";
 import "./flip-transitions.css";
-
 import visa from "../../assets/visa.png";
 
 function Card({
@@ -10,6 +9,14 @@ function Card({
   onClick: () => void;
   gradient: string;
 }) {
+  // function generateRandomNumber() {
+  //   const firstFour = Math.floor(1000 + Math.random() * 9000).toString();
+  //   const secondFour = Math.floor(1000 + Math.random() * 9000).toString();
+  //   const thirdFour = Math.floor(1000 + Math.random() * 9000).toString();
+  //   const fourthFour = Math.floor(1000 + Math.random() * 9000).toString();
+  //   return `${firstFour}-${secondFour}-${thirdFour}-${fourthFour}`;
+  // }
+  // console.log("first", generateRandomNumber());
   return (
     <div className="card" onClick={onClick}>
       <div className={`card-back ${gradient} rounded-[20px]`}>
