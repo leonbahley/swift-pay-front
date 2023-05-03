@@ -8,7 +8,7 @@ import earth from "../assets/earth.png";
 import heart from "../assets/heart.png";
 import lock from "../assets/lock.png";
 import card from "../assets/card.png";
-import Header from "../components/Header";
+import coin from "../assets/coin.png";
 import { BsArrowRight } from "react-icons/bs";
 
 import { useScroll, useTransform, motion } from "framer-motion";
@@ -23,7 +23,6 @@ const Home = () => {
   const rightX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   return (
     <>
-      <Header />
       <main className="bg-[#f3f5f7] overflow-hidden pb-20">
         <div className="pt-20 pb-36 relative">
           <motion.div
@@ -151,6 +150,26 @@ const Home = () => {
             <BsArrowRight size={20} />
           </span>
         </div>
+        <div
+          onClick={() => navigate("register")}
+          className="bg-[#eb5a79] h-[524px] w-[1000px] mx-auto rounded-3xl relative overflow-hidden group cursor-pointer mt-8"
+        >
+          <h3 className="font-bold text-white text-2xl top-1/2 -translate-y-1/2 left-7 absolute max-w-[500px]">
+            Congratulations! You've earned 500 credits just by creating an
+            account with us
+          </h3>
+
+          <img
+            width={500}
+            className="absolute top-1/2 -right-20 -translate-y-1/2 group-hover:scale-110 transition duration-700"
+            src={coin}
+            alt="coin"
+          />
+          <span className="group-hover:bg-[#007efc] transition duration-700 px-4 py-1 rounded-full flex gap-3 items-center absolute left-7 bottom-8 font-bold text-white text-lg">
+            Get an account
+            <BsArrowRight size={20} />
+          </span>
+        </div>
         <div className="w-[1000px] mx-auto flex justify-between mt-8">
           <div
             onClick={() => navigate("register")}
@@ -183,6 +202,7 @@ const Home = () => {
             />
           </div>
         </div>
+
         <div
           onClick={() => navigate("register")}
           className="mt-8 w-[1000px] mx-auto rounded-3xl h-[524px] bg-[#323c46] relative group cursor-pointer"

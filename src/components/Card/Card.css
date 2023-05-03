@@ -1,0 +1,21 @@
+.card {
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+  position: relative;
+  cursor: pointer;
+}
+
+.card-front,
+.card-back {
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: absolute;
+  color: white;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}

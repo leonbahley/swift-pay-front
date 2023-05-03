@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const Register = () => {
   const [isPhoneInputSelected, setIsPhoneInputSelected] = useState(true);
   const [num, setNum] = useState<string>();
+  const [name, setName] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
@@ -178,6 +179,13 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="mt-3 h-[56px] w-full rounded-xl bg-[#edeff2] px-4  focus:bg-[#dfe3e7] hover:bg-[#dfe3e7] transition outline-none"
             placeholder="Password"
+            type="text"
+          />
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="mt-3 h-[56px] rounded-xl bg-[#edeff2] px-4 w-full focus:bg-[#dfe3e7] hover:bg-[#dfe3e7] transition outline-none"
+            placeholder="First and last name"
             type="text"
           />
 
