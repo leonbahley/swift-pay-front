@@ -3,15 +3,19 @@ import { CiSearch } from "react-icons/ci";
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [isPhoneInputSelected, setIsPhoneInputSelected] = useState(true);
-  const [num, setNum] = useState<string>();
-  const [name, setName] = useState<string>();
-  const [email, setEmail] = useState<string>();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [phoneNumber, setNum] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
-  const [password, setPassword] = useState<string>();
+  const [password, setPassword] = useState<string>("");
   const [countryCode, setCountryCode] = useState({ code: "34", iso: "ES" });
   const [countryQuery, setCountryQuery] = useState("");
   const closeDropdown = (e: MouseEvent) => {
@@ -28,8 +32,37 @@ const Register = () => {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let apiUrl;
+    let body;
+    if (isPhoneInputSelected) {
+      body = { name, phoneNumber, password };
+      apiUrl = `${process.env.REACT_APP_API_URL}auth/sign-up/phone`;
+    } else {
+      body = { name, email, password };
+      apiUrl = `${process.env.REACT_APP_API_URL}auth/sign-up/email`;
+    }
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...body,
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("token", JSON.stringify(data.token));
+        navigate("/cards");
+      } else if (res.statusText === "Conflict") {
+        setErrorMessage("Credentials are taken");
+      }
+    } catch (error) {
+      setErrorMessage("Something went wrong, try again");
+    }
   };
 
   useEffect(() => {
@@ -45,11 +78,11 @@ const Register = () => {
 
   const isDisabledButton = () => {
     if (!isPhoneInputSelected) {
-      if (emailValid && password) {
+      if (emailValid && password && name) {
         return false;
       }
     } else {
-      if (num && password) {
+      if (phoneNumber && password && name) {
         return false;
       }
     }
@@ -60,6 +93,9 @@ const Register = () => {
     <div className="relative bg-[#f7f7f7] h-screen">
       <span className="font-bold text-xl absolute left-7 top-7">SwiftPay</span>
       <div className="top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[352px] absolute">
+        {errorMessage && (
+          <p className="text-red-500 text-center mb-2">{errorMessage}</p>
+        )}
         <h1 className="font-bold text-4xl">Sign up to SwiftPay</h1>
         <div className="flex bg-[#edeff2] rounded-lg h-[32px] mt-7 mb-4 p-[2px] gap-1">
           <button
@@ -101,7 +137,7 @@ const Register = () => {
                 +{countryCode.code}
               </div>
               <input
-                value={num}
+                value={phoneNumber}
                 onChange={(e) => setNum(e.target.value)}
                 className="rounded-xl bg-[#edeff2] px-4 w-[224px] focus:bg-[#dfe3e7] hover:bg-[#dfe3e7] transition outline-none"
                 placeholder="Phone number"

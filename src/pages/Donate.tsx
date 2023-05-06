@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useMachine } from "@xstate/react";
 
 import heart from "../assets/heart.png";
+import { machine } from "../machines/cardsMachine";
 
 const Donate = () => {
+  const [state, send] = useMachine(machine);
   const [isMessageVisible, setIsMessageVisible] = useState(false);
 
   const handleDonate = () => {

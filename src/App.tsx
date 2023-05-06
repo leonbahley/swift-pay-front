@@ -7,6 +7,8 @@ import Cards from "./pages/Cards";
 import SharedLayout from "./components/SharedLayout";
 import Transactions from "./pages/Transactions";
 import Donate from "./pages/Donate";
+import { PublicRoute } from "./components/PublicRoute";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -14,13 +16,19 @@ function App() {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
-          <Route path="cards" element={<Cards />} />
-          <Route path="transactions" element={<Transactions />} />
-          <Route path="donate" element={<Donate />} />
+          <Route path="cards" element={<PrivateRoute component={Cards} />} />
+          <Route
+            path="transactions"
+            element={<PrivateRoute component={Transactions} />}
+          />
+          <Route path="donate" element={<PrivateRoute component={Donate} />} />
         </Route>
 
-        <Route path="login" element={<Login />}></Route>
-        <Route path="register" element={<Register />}></Route>
+        <Route path="login" element={<PublicRoute component={Login} />}></Route>
+        <Route
+          path="register"
+          element={<PublicRoute component={Register} />}
+        ></Route>
       </Routes>
     </>
   );
