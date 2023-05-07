@@ -1,4 +1,4 @@
-import { actions, assign, createMachine } from "xstate";
+import { assign, createMachine } from "xstate";
 
 export const machine = createMachine({
   /** @xstate-layout N4IgpgJg5mDOIC5QGMCGAnCsCyrkAsBLAOzADoAbAe1QhKgAI1NYBiCK0skgNyoGtyMAC4BhDFgDaABgC6iUAAcqsQsMKcFIAB6IATNIBsZI3oCsBgBwBGQ3cNmAzABoQAT0Q2yZ6b+vnDaTMATgB2MzMAX0jXZixcAhJyalp6Jgk2MHR0KnQyRQpUYQAzXIBbMhFxFhl5JBBlVXVNet0EA2NTC2kbewcXd0RrUIAWMmCnW2GfYKDQw2iYkGIqCDgtOJw8IlItRrUNYi02gFpDRzJDPWG9Ef9LUL1HaxGzVw8EE+sLwOkb0Ossz0wVewWisQyCR2yRodGIjE2exUBxaoFO1jMl2ujzuegeTxeb0GCFCF0swWClkclgielG0j0CyWmyhSTImwAYmBhARIEimodjohHI8yMNAYyGeSRo4jO8htILiN5oZ-H9gvYwuCQCztmzityCBzUIQKABXdBgfkoo6tYWi8XBSV4kGywzyhDDC4TZ4RV6hJ0WPSLSJAA */
@@ -107,7 +107,11 @@ export const machine = createMachine({
             cards: (context, event) =>
               context.cards.map((item) => {
                 if (item.cardNumber === event.data.card?.cardNumber) {
-                  return { ...item, balance: event.data.card.balance };
+                  return {
+                    ...item,
+                    balance: event.data.card.balance,
+                    transactions: event.data.card.transactions,
+                  };
                 }
                 return item;
               }),

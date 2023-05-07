@@ -37,7 +37,11 @@ const Register = () => {
     let apiUrl;
     let body;
     if (isPhoneInputSelected) {
-      body = { name, phoneNumber, password };
+      body = {
+        name,
+        phoneNumber: `${countryCode.code}${phoneNumber}`,
+        password,
+      };
       apiUrl = `${process.env.REACT_APP_API_URL}auth/sign-up/phone`;
     } else {
       body = { name, email, password };

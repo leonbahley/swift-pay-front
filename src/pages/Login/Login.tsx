@@ -3,14 +3,18 @@ import { CiSearch } from "react-icons/ci";
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [isPhoneInputSelected, setIsPhoneInputSelected] = useState(true);
-  const [num, setNum] = useState<string>();
+  const [num, setNum] = useState<string>("");
   const [email, setEmail] = useState<string>();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
-  const [password, setPassword] = useState<string>();
+  const [password, setPassword] = useState<string>("");
   const [countryCode, setCountryCode] = useState({ code: "34", iso: "ES" });
   const [countryQuery, setCountryQuery] = useState("");
   const closeDropdown = (e: MouseEvent) => {
@@ -27,8 +31,38 @@ const Login = () => {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let apiUrl;
+    let body;
+    if (isPhoneInputSelected) {
+      console.log(`${countryCode.code}${num}`);
+      body = { phoneNumber: `${countryCode.code}${num}`, password };
+      apiUrl = `${process.env.REACT_APP_API_URL}auth/log-in/phone`;
+    } else {
+      body = { email, password };
+      apiUrl = `${process.env.REACT_APP_API_URL}auth/log-in/email`;
+    }
+    try {
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...body,
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("token", JSON.stringify(data.token));
+        navigate("/cards");
+      } else if (res.statusText === "Unauthorized") {
+        setErrorMessage("Wrong credentials");
+      }
+    } catch (error) {
+      setErrorMessage("Something went wrong, try again");
+    }
   };
 
   useEffect(() => {
@@ -59,6 +93,7 @@ const Login = () => {
     <div className="relative bg-[#f7f7f7] h-screen">
       <span className="font-bold text-xl absolute left-7 top-7">SwiftPay</span>
       <div className="top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[352px] absolute">
+        <p className=" text-red-700 text-center">{errorMessage}</p>
         <h1 className="font-bold text-4xl">Log in to SwiftPay</h1>
         <div className="flex bg-[#edeff2] rounded-lg h-[32px] mt-7 mb-4 p-[2px] gap-1">
           <button

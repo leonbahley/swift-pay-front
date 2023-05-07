@@ -57,12 +57,6 @@ const Transactions = () => {
 
   return (
     <div className=" bg-[#f3f5f7] min-h-screen">
-      {JSON.stringify(
-        state.context.cards.filter((item) => item.type === "usd")[0] &&
-          state.context.cards.filter((item) => item.type === "usd")[0]
-            .transactions
-      )}
-
       <div className="flex pt-8 justify-center gap-20 relative">
         <p className="text-red-600 absolute left-1/2 -translate-x-1/2 top-0 text-lg">
           {state.context.error}
@@ -73,22 +67,26 @@ const Transactions = () => {
               {isUSDCardSelected ? "$" : "\u20AC"}{" "}
               {isUSDCardSelected ? USDCard?.balance : EURCard?.balance}
             </span>
-            <button
-              onClick={() => setIsUSDCardSelected(true)}
-              className={`ml-10 font-bold ${
-                isUSDCardSelected && "bg-white"
-              }  px-4 py-2 rounded-xl`}
-            >
-              USD card
-            </button>
-            <button
-              onClick={() => setIsUSDCardSelected(false)}
-              className={`ml-8 font-bold ${
-                !isUSDCardSelected && "bg-white"
-              }  px-4 py-2 rounded-xl`}
-            >
-              EUR card
-            </button>
+            {USDCard && (
+              <button
+                onClick={() => setIsUSDCardSelected(true)}
+                className={`ml-10 font-bold ${
+                  isUSDCardSelected && "bg-white"
+                }  px-4 py-2 rounded-xl`}
+              >
+                USD card
+              </button>
+            )}
+            {EURCard && (
+              <button
+                onClick={() => setIsUSDCardSelected(false)}
+                className={`ml-8 font-bold ${
+                  !isUSDCardSelected && "bg-white"
+                }  px-4 py-2 rounded-xl`}
+              >
+                EUR card
+              </button>
+            )}
           </div>
           <ul className="mt-4 flex flex-col gap-3">
             {isUSDCardSelected

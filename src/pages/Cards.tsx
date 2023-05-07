@@ -7,7 +7,6 @@ const Cards = () => {
 
   return (
     <div className="flex flex-col items-center bg-[#f3f5f7] h-screen relative">
-      <p className="max-w-[500px]">{JSON.stringify(state.context)}</p>
       {state.matches("fetchFailure") && (
         <p className="text-red-600 text-lg pt-5">{state.context.error}</p>
       )}
