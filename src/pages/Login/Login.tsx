@@ -36,7 +36,6 @@ const Login = () => {
     let apiUrl;
     let body;
     if (isPhoneInputSelected) {
-      console.log(`${countryCode.code}${num}`);
       body = { phoneNumber: `${countryCode.code}${num}`, password };
       apiUrl = `${process.env.REACT_APP_API_URL}auth/log-in/phone`;
     } else {
@@ -57,7 +56,7 @@ const Login = () => {
         const data = await res.json();
         localStorage.setItem("token", JSON.stringify(data.token));
         navigate("/cards");
-      } else if (res.statusText === "Unauthorized") {
+      } else if (res.status === 401) {
         setErrorMessage("Wrong credentials");
       }
     } catch (error) {

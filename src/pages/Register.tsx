@@ -61,7 +61,7 @@ const Register = () => {
         const data = await res.json();
         localStorage.setItem("token", JSON.stringify(data.token));
         navigate("/cards");
-      } else if (res.statusText === "Conflict") {
+      } else if (res.status === 409) {
         setErrorMessage("Credentials are taken");
       }
     } catch (error) {
