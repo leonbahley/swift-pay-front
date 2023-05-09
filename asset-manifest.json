@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/swift-pay-front/static/css/main.1fc4cf60.css",
-    "main.js": "/swift-pay-front/static/js/main.819762bd.js",
+    "main.js": "/swift-pay-front/static/js/main.96fed2f4.js",
     "static/media/lock.png": "/swift-pay-front/static/media/lock.3898c6d73c3b0d80c7f6.png",
     "static/media/heart.png": "/swift-pay-front/static/media/heart.87c2dabc62f0919e76c5.png",
     "static/media/earth.png": "/swift-pay-front/static/media/earth.12f7563ac88a23d53019.png",
@@ -13,10 +13,10 @@
     "static/media/5.png": "/swift-pay-front/static/media/5.3c48f8864d66a78ceaf3.png",
     "index.html": "/swift-pay-front/index.html",
     "main.1fc4cf60.css.map": "/swift-pay-front/static/css/main.1fc4cf60.css.map",
-    "main.819762bd.js.map": "/swift-pay-front/static/js/main.819762bd.js.map"
+    "main.96fed2f4.js.map": "/swift-pay-front/static/js/main.96fed2f4.js.map"
   },
   "entrypoints": [
     "static/css/main.1fc4cf60.css",
-    "static/js/main.819762bd.js"
+    "static/js/main.96fed2f4.js"
   ]
 }
